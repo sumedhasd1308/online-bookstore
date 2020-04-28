@@ -9,31 +9,52 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./book-list.component.css']
 })
 export class BookListComponent implements OnInit {
-  books: Book[]; 
+  books: Book[];
   currentCategoryId: number;
+  searchMode: boolean;
 
   constructor(private _bookService: BookService,
-              private _activatedRoute: ActivatedRoute) {}
+    private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this._activatedRoute.paramMap.subscribe(()=> {
+    this._activatedRoute.paramMap.subscribe(() => {
       this.listBooks();
     })
   }
 
-  listBooks(){
-   
+  listBooks() {
+    this.searchMode = this._activatedRoute.snapshot.paramMap.has('keyword');
+    if (this.searchMode) {
+      //do search work
+      this.handleSearchBooks();
+    } else {
+      //display books based on category
+      this.handleListBooks();
+    }
+
+  }
+  handleListBooks() {
     const hasCategoryId: boolean = this._activatedRoute.snapshot.paramMap.has('id');
-     
-    if(hasCategoryId){
-       this.currentCategoryId = +this._activatedRoute.snapshot.paramMap.get('id'); 
-    }else{
+
+    if (hasCategoryId) {
+      this.currentCategoryId = +this._activatedRoute.snapshot.paramMap.get('id');
+    } else {
       this.currentCategoryId = 1;
     }
     this._bookService.getBooks(this.currentCategoryId).subscribe(
       data => this.books = data
-      
     )
+  }
+
+  handleSearchBooks() {
+    const keyword: string = this._activatedRoute.snapshot.paramMap.get('keyword');
+
+    this._bookService.searchBooks(keyword).subscribe(
+      data => {
+        this.books =data;
+      }
+    )
+
   }
 
 }
