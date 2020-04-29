@@ -9,16 +9,9 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-8">
-                <input type="text" class="form-control" placeholder="Search books">
-              </div>
-              <div class="col-md-2">
-                <button type="submit" class="btn btn-primary">Search</button>
-              </div>
-            </div>
-          </div>
+          <!-- This is for serach component -->
+          <app-search></app-search>
+          
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
               <a class="nav-link" href="#">Home
@@ -41,40 +34,11 @@
     <br />
     <!-- Page Content -->
     <div class="container">
-
-      <div class="row">
-
-        <div class="col-lg-3">
-
-
-          <div class="list-group">
-            <a href="#" class="list-group-item">Category 1</a>
-            <a href="#" class="list-group-item">Category 2</a>
-            <a href="#" class="list-group-item">Category 3</a>
-          </div>
-
-        </div>
-        <!-- /.col-lg-3 -->
-
-        <div class="col-lg-9">
-
-
-
-          <app-book-list></app-book-list>
-
-
-          <!-- /.row -->
-
-        </div>
-        <!-- /.col-lg-9 -->
-
-      </div>
-      <!-- /.row -->
-
-    </div>
+       <router-outlet></router-outlet>
+  </div>
   </div>
   <!-- /.container -->
-
+      
   <!-- Footer -->
   <footer class="py-5 footer">
     <div class="container">
